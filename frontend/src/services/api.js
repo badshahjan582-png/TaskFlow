@@ -14,6 +14,11 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Silently ignore expected 401 status (it means just not logged in yet) 
+    // rather than logging it as a dangerous error exception
+    if (error.response?.status === 401) {
+        return Promise.reject(error);
+    }
     console.error('API Error:', error.response?.data || error.message);
     return Promise.reject(error);
   }
