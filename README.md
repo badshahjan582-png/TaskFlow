@@ -145,7 +145,8 @@ Navigate to `http://localhost:5173`.
 - **Trust-Proxy Propagation**: Configured `trust proxy` settings enabling encrypted transmission behind managed load balancers.
 - **Secure Cookie Handling**: Enforcement of HTTP-only and Secure flags in production deployments.
 
-## Deployment Target Recommendations
-- **Frontend Hosting**: Vercel / Netlify static build deployment targeting the `/frontend` root.
-- **API Execution**: Railway / Render environment sourcing from `/backend` subfolder.
-- **Data Layer**: Hosted PostgreSQL providers (e.g., Neon Serverless).
+## Deployment Configuration
+The standard deployment topology maps each independent environment to suitable cloud tiers:
+- **Backend Environment**: Deployed on **Railway**, sourcing directly from the `/backend` directory.
+- **Frontend Client**: Hosted on **Vercel**, sourcing static optimized bundle from `/frontend`.
+- **Database Layer**: Cloud-hosted via **Neon Serverless PostgreSQL**.
