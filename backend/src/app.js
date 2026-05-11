@@ -21,6 +21,9 @@ require('./config/passport')(passport);
 
 const app = express();
 
+// MUST enable trust proxy for cross-site cookies to work on platforms like Railway
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(compression());
 app.use(helmet());
