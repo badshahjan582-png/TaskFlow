@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-md' }) => {
@@ -15,20 +16,20 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-md' }) => {
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-[2px]"
+        className="absolute inset-0 bg-black/50 backdrop-blur-[4px]"
         onClick={onClose}
       />
 
       {/* Panel */}
-      <div className={`relative w-full ${maxWidth} bg-white dark:bg-[#242424] rounded-xl border border-gray-200 dark:border-white/[0.1] shadow-2xl shadow-black/20 flex flex-col max-h-[90vh]`}>
+      <div className={`relative w-full ${maxWidth} bg-white dark:bg-[#242424] rounded-xl border border-gray-200 dark:border-white/[0.1] shadow-2xl shadow-black/30 flex flex-col max-h-[90vh] z-10`}>
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-white/[0.07] shrink-0">
           <h2 className="text-[15px] font-semibold text-gray-900 dark:text-white">{title}</h2>
@@ -46,7 +47,8 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-md' }) => {
           {children}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
