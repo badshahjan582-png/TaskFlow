@@ -1,410 +1,151 @@
-# TaskFlow - Team Task Manager
+# TaskFlow
 
-A **production-ready, full-stack team collaboration platform** for organizing projects and managing tasks effortlessly. Built with modern technologies and professional UI/UX design inspired by Notion and Linear.
+A full-stack task management and team collaboration application built with Node.js, PostgreSQL, and React.
 
-![TaskFlow](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
-![Node](https://img.shields.io/badge/Node-18%2B-blue)
-![React](https://img.shields.io/badge/React-19-blue)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12%2B-blue)
+## Overview
 
----
+TaskFlow provides teams with a centralized platform to create, manage, and track tasks across distinct workspaces. The application leverages a REST API backend for secure data persistence and authentication, coupled with a responsive frontend client for task orchestration.
 
-## ✨ Features
+## Features
 
-### 🔐 Authentication & Security
-- ✅ Secure session-based authentication with Passport.js
-- ✅ Bcrypt password hashing
-- ✅ HTTP-only cookies with CSRF protection
-- ✅ Rate limiting on auth endpoints (20 req/15 min)
-- ✅ SQL injection prevention with parameterized queries
-- ✅ SSL certificate validation in production
+### Authentication
+- Session-based user authentication via Passport.js.
+- Hashed password storage using `bcrypt`.
+- Restricted client-side views via global route guards.
 
-### 👥 Team Collaboration
-- ✅ Create and manage teams
-- ✅ Invite team members by email
-- ✅ Role-based access (admin/member)
-- ✅ Real-time team member list
-- ✅ Team settings and management
+### Team Management
+- Workspace creation and management.
+- Centralized tracking of total active tasks per team.
+- Listing and retrieval of assigned team members.
 
-### 📋 Task Management
-- ✅ Create, read, update, delete tasks
-- ✅ Set priority levels (Low, Medium, High)
-- ✅ Task status tracking (Todo, In Progress, Completed)
-- ✅ Assign tasks to team members
-- ✅ Set due dates with calendar picker
-- ✅ Task descriptions and notes
-- ✅ One-click task completion toggle
+### Task Operations
+- Full CRUD functionality for individual tasks.
+- Task classification by priority levels (Low, Medium, High).
+- Workflow state management (Todo, In Progress, Completed).
+- Single-click task completion toggles from board views.
+- Date handling for target delivery deadlines.
 
-### 🔍 Search & Filter
-- ✅ Real-time task search by title/description
-- ✅ Filter by team member
-- ✅ Filter by task status
-- ✅ Combined filter support
-- ✅ Instant results with memoization
+### Search & Filtering
+- Query tasks dynamically by title and content fields.
+- Filter tasks by status or individual assignee.
 
-### 🎨 Professional UI/UX
-- ✅ Notion/Linear-inspired design
-- ✅ Clean, minimal interface
-- ✅ Dark mode support
-- ✅ Fully responsive (mobile, tablet, desktop)
-- ✅ Smooth animations and transitions
-- ✅ Loading skeletons
-- ✅ Professional empty states
-- ✅ Toast notifications
+### User Interface
+- Dynamic theme detection supporting OS preference for dark mode rendering.
+- Fully responsive layout for mobile and desktop viewport scaling.
+- Optimized asset bundle using Vite.
 
-### 📱 Responsive Design
-- ✅ Mobile-first approach
-- ✅ Adaptive sidebar (drawer on mobile)
-- ✅ Touch-friendly buttons and inputs
-- ✅ Optimized for all screen sizes
-- ✅ Proper spacing and typography
-
----
-
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
-- **React 19** - UI library
-- **Vite** - Build tool (lightning fast)
-- **Tailwind CSS** - Utility-first styling
-- **React Router v7** - Client-side routing
-- **Axios** - HTTP client
-- **Lucide React** - Icon library
-- **date-fns** - Date formatting
-- **react-hot-toast** - Notifications
+- **React 19** - UI Component library.
+- **Tailwind CSS** - Styling and layout utilities.
+- **React Router** - Client-side view resolution.
+- **Axios** - Asynchronous HTTP processing.
 
 ### Backend
-- **Node.js 18+** - Runtime
-- **Express.js 5** - Web framework
-- **PostgreSQL 12+** - Database
-- **Passport.js** - Authentication
-- **express-session** - Session management
-- **connect-pg-simple** - PostgreSQL session store
-- **Joi** - Input validation
-- **Bcrypt** - Password hashing
-- **Helmet** - Security headers
-- **CORS** - Cross-origin requests
-- **Morgan** - HTTP logging
-- **express-rate-limit** - Rate limiting
+- **Node.js & Express** - REST API orchestration.
+- **PostgreSQL** - Relational data persistence.
+- **Passport.js** - Core authentication strategy.
+- **express-session** - Node-native session tracking.
+- **connect-pg-simple** - SQL-backed session storage.
 
-### DevOps
-- **Git** - Version control
-- **npm** - Package management
-- **Vite** - Frontend bundling
-- **PostgreSQL** - Data persistence
+## Project Structure
 
----
-
-## 📋 Project Structure
-
-```
+```text
 TASKFLOW/
-├── backend/
+├── backend/                # Express API and database configs
 │   ├── src/
-│   │   ├── config/
-│   │   │   ├── db.js              # Database connection
-│   │   │   └── passport.js        # Auth strategy
-│   │   ├── controllers/
-│   │   │   ├── authController.js  # Auth logic
-│   │   │   ├── taskController.js  # Task CRUD
-│   │   │   └── teamController.js  # Team management
-│   │   ├── middleware/
-│   │   │   ├── auth.js            # Auth guards
-│   │   │   ├── errorHandler.js    # Error handling
-│   │   │   └── validate.js        # Input validation
-│   │   ├── routes/
-│   │   │   ├── authRoutes.js
-│   │   │   ├── taskRoutes.js
-│   │   │   └── teamRoutes.js
-│   │   ├── services/
-│   │   │   ├── userService.js
-│   │   │   ├── taskService.js
-│   │   │   └── teamService.js
-│   │   ├── validators/
-│   │   │   ├── authValidator.js
-│   │   │   ├── taskValidator.js
-│   │   │   └── teamValidator.js
-│   │   ├── app.js                 # Express app
-│   │   └── server.js              # Server entry
-│   ├── schema.sql                 # Database schema
-│   ├── .env.example               # Environment template
+│   │   ├── config/         # DB connectivity and strategies
+│   │   ├── controllers/    # Request orchestration logic
+│   │   ├── routes/         # Endpoint definition mapping
+│   │   ├── services/       # Core processing logic
+│   │   └── app.js          # Express instance configuration
+│   ├── schema.sql          # Database table and index creation
 │   └── package.json
 │
-├── frontend/
+├── frontend/               # React SPA
 │   ├── src/
-│   │   ├── components/
-│   │   │   └── ui/
-│   │   │       ├── Button.jsx
-│   │   │       ├── Input.jsx
-│   │   │       ├── Modal.jsx
-│   │   │       └── Skeleton.jsx
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx    # Auth state
-│   │   ├── layouts/
-│   │   │   └── DashboardLayout.jsx
-│   │   ├── pages/
-│   │   │   ├── auth/
-│   │   │   │   ├── Login.jsx
-│   │   │   │   └── Register.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Teams.jsx
-│   │   │   └── TeamBoard.jsx
-│   │   ├── services/
-│   │   │   └── api.js             # Axios instance
-│   │   ├── utils/
-│   │   │   └── cn.js              # Class merge utility
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   ├── .env.example
-│   ├── vite.config.js
-│   ├── tailwind.config.js
+│   │   ├── components/     # Reusable layout components
+│   │   ├── context/        # Global state providers (Auth)
+│   │   ├── pages/          # Routable view containers
+│   │   └── services/       # Client-side API configuration
+│   ├── vite.config.js      # Bundler directives
 │   └── package.json
-│
-├── DEPLOYMENT.md                  # Deployment guide
-└── README.md                       # This file
 ```
 
----
-
-## 🚀 Getting Started
+## Setup & Installation
 
 ### Prerequisites
-- **Node.js** 18 or higher
-- **PostgreSQL** 12 or higher
-- **Git**
+- Node.js v18 or higher
+- PostgreSQL 12 or higher
 
-### Local Development
-
-1. **Clone Repository**
+### 1. Database Configuration
+Initialize your database instance and run the schema generator:
 ```bash
-git clone https://github.com/YOUR_USERNAME/taskflow.git
-cd TASKFLOW
-```
-
-2. **Install Dependencies**
-```bash
-npm install --prefix backend
-npm install --prefix frontend
-```
-
-3. **Setup Database**
-```bash
-# Create database
 createdb taskflow_db
-
-# Run schema
 psql taskflow_db < backend/schema.sql
 ```
 
-4. **Configure Environment**
-
-**Backend** (`backend/.env`):
+### 2. Backend Setup
+Configure environment credentials and start node processes:
+```bash
+cd backend
+npm install
+```
+Populate your `.env` file within the `/backend` directory:
 ```env
 PORT=5000
 NODE_ENV=development
-DATABASE_URL=postgresql://user:password@localhost:5432/taskflow_db
-SESSION_SECRET=your_random_secret_key_here_min_32_chars
+DATABASE_URL=postgresql://user:pass@localhost:5432/taskflow_db
+SESSION_SECRET=your_random_key_string
 FRONTEND_URL=http://localhost:5173
 ```
+Run deployment server:
+```bash
+npm run dev
+```
 
-**Frontend** (`frontend/.env`):
+### 3. Frontend Setup
+Configure dynamic API injection and start client:
+```bash
+cd frontend
+npm install
+```
+Define the API target in `/frontend/.env`:
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
-
-5. **Start Development Servers**
-
-Terminal 1 - Backend:
+Execute local instance:
 ```bash
-cd backend
 npm run dev
 ```
+Navigate to `http://localhost:5173`.
 
-Terminal 2 - Frontend:
-```bash
-cd frontend
-npm run dev
-```
-
-6. **Open Application**
-```
-http://localhost:5173
-```
-
----
-
-## 📚 API Documentation
+## API Reference
 
 ### Authentication
-- `POST /api/auth/register` - Create account
-- `POST /api/auth/login` - Sign in
-- `POST /api/auth/logout` - Sign out
-- `GET /api/auth/me` - Get current user
+- `POST /api/auth/register` - Account initialization.
+- `POST /api/auth/login` - User sign-in.
+- `POST /api/auth/logout` - Session invalidation.
+- `GET /api/auth/me` - Current context validation.
 
-### Teams
-- `GET /api/teams` - List user's teams
-- `POST /api/teams` - Create team
-- `GET /api/teams/:id` - Get team details
-- `PUT /api/teams/:id` - Update team
-- `DELETE /api/teams/:id` - Delete team
-- `POST /api/teams/:id/members` - Add member
+### Workspace Operations
+- `GET /api/teams` - List accessible teams.
+- `POST /api/teams` - Construct new workspace.
+- `GET /api/teams/:id` - Fetch specific team analytics.
 
-### Tasks
-- `GET /api/tasks/team/:teamId` - List team tasks
-- `POST /api/tasks` - Create task
-- `PUT /api/tasks/:id` - Update task
-- `DELETE /api/tasks/:id` - Delete task
+### Task Operations
+- `GET /api/tasks/team/:teamId` - Retrieve contextual workspace tasks.
+- `POST /api/tasks` - Submit new ticket definition.
+- `PUT /api/tasks/:id` - Modify attributes or state flags.
+- `DELETE /api/tasks/:id` - Hard deletion of records.
 
----
+## Security Hardening
+- **SQL Parameterization**: Preventative query structuring guarding against injection vulnerabilities.
+- **Trust-Proxy Propagation**: Configured `trust proxy` settings enabling encrypted transmission behind managed load balancers.
+- **Secure Cookie Handling**: Enforcement of HTTP-only and Secure flags in production deployments.
 
-## 🔒 Security Features
-
-✅ **Authentication**
-- Passport.js Local Strategy
-- Session-based with express-session
-- PostgreSQL session store (connect-pg-simple)
-- Bcrypt password hashing (10 rounds)
-
-✅ **Authorization**
-- Protected routes with auth middleware
-- Team membership verification
-- Admin-only operations
-
-✅ **Data Protection**
-- Parameterized SQL queries (no injection)
-- Input validation with Joi
-- HTTP-only cookies
-- CSRF protection via SameSite cookies
-- Helmet security headers
-
-✅ **Rate Limiting**
-- 20 requests per 15 minutes on auth endpoints
-- Prevents brute-force attacks
-
-✅ **SSL/TLS**
-- Production enforces certificate validation
-- Development allows self-signed certs
-
----
-
-## 📊 Database Schema
-
-### Users Table
-```sql
-id (PK) | username | email | password | full_name | created_at | updated_at
-```
-
-### Teams Table
-```sql
-id (PK) | name | description | created_by (FK) | created_at | updated_at
-```
-
-### Team Members Table
-```sql
-id (PK) | team_id (FK) | user_id (FK) | role | joined_at
-```
-
-### Tasks Table
-```sql
-id (PK) | title | description | status | priority | due_date | assigned_to (FK) | team_id (FK) | created_by (FK) | created_at | updated_at
-```
-
-### Indexes
-- `tasks(team_id)` - Fast team task queries
-- `tasks(assigned_to)` - Fast assignee queries
-- `team_members(team_id)` - Fast member lookups
-- `team_members(user_id)` - Fast user team lookups
-
----
-
-## 🚀 Deployment
-
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
-
-**Quick Options:**
-- **Frontend**: Vercel, Netlify, Render
-- **Backend**: Railway, Render, Fly.io
-- **Database**: Neon, Railway, Render PostgreSQL
-
----
-
-## 🎯 Performance
-
-- ✅ Frontend: 377KB JS, 27KB CSS (gzipped)
-- ✅ Vite build: 2.07s
-- ✅ Database indexes on all foreign keys
-- ✅ Connection pooling enabled
-- ✅ Compression middleware enabled
-- ✅ Memoized task filtering
-- ✅ Optimistic UI updates
-
----
-
-## 🧪 Testing
-
-```bash
-# Backend
-cd backend
-npm test
-
-# Frontend
-cd frontend
-npm test
-```
-
----
-
-## 📝 Environment Variables
-
-### Backend (.env)
-```
-PORT=5000
-NODE_ENV=development|production
-DATABASE_URL=postgresql://...
-SESSION_SECRET=random_32_char_string
-FRONTEND_URL=http://localhost:5173
-```
-
-### Frontend (.env)
-```
-VITE_API_URL=http://localhost:5000/api
-```
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 🙋 Support
-
-For issues and questions:
-1. Check [DEPLOYMENT.md](./DEPLOYMENT.md) for deployment help
-2. Review API documentation above
-3. Check database schema
-4. Verify environment variables
-
----
-
-## 🎉 Credits
-
-Built with ❤️ using React, Node.js, and PostgreSQL.
-
-Inspired by Notion, Linear, and modern SaaS applications.
-
----
-
-**Ready to deploy? Check out [DEPLOYMENT.md](./DEPLOYMENT.md)** 🚀
+## Deployment Target Recommendations
+- **Frontend Hosting**: Vercel / Netlify static build deployment targeting the `/frontend` root.
+- **API Execution**: Railway / Render environment sourcing from `/backend` subfolder.
+- **Data Layer**: Hosted PostgreSQL providers (e.g., Neon Serverless).
